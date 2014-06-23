@@ -36,14 +36,16 @@ type T1 struct {
 
         if fileExists {
             defer file.Close()
-            statusCode = "HTTP/1.0 200 OK" + CRLF
-            contentType = "Content-Type: " + resContentType(resource) + CRLF
-            entityBody, _ = ioutil.ReadFile(resource)
-            contentLength = "Content-Length: " + strconv.Itoa(len(entityBody)) + CRLF
+            
         } else {
-            statusCode = "HTTP/1.0 404 Not Found" + CRLF
-            contentType = "Content-type: " + "text/html" + CRLF
+            resource = "www/404.jpg"
         }
+
+        statusCode = "HTTP/1.0 200 OK" + CRLF
+        contentType = "Content-Type: " + resContentType(resource) + CRLF
+        entityBody, _ = ioutil.ReadFile(resource)
+        contentLength = "Content-Length: " + strconv.Itoa(len(entityBody)) + CRLF
+
         c.Write([]byte(statusCode))
         c.Write([]byte(contentType))
         c.Write([]byte(contentLength))
